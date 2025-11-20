@@ -72,19 +72,13 @@ namespace ClubRegistration
 
             string ageText = txtAge.Text.Trim();
 
-            if (int.TryParse(ageText, out ageValue))
-
+            if (!int.TryParse(ageText, out ageValue))
             {
-
-
-
                 MessageBox.Show("Please enter a valid, whole number for Age.", "Input Error");
-
                 txtAge.Focus();
-
                 return;
-
             }
+
 
             try
 
@@ -92,7 +86,7 @@ namespace ClubRegistration
 
                 ID = RegistrationID();
 
-                StudentId = long.Parse(label1.Text);
+                StudentId = studentIdValue;
 
                 FirstName = txtFirstName.Text;
 

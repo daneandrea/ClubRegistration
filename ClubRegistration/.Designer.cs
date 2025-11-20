@@ -60,15 +60,16 @@
             // 
             this.cbID.FormattingEnabled = true;
             this.cbID.Location = new System.Drawing.Point(35, 74);
-            this.cbID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbID.Margin = new System.Windows.Forms.Padding(4);
             this.cbID.Name = "cbID";
             this.cbID.Size = new System.Drawing.Size(280, 24);
             this.cbID.TabIndex = 34;
+            this.cbID.SelectedIndexChanged += new System.EventHandler(this.cbID_SelectedIndexChanged);
             // 
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(35, 151);
-            this.txtLastName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLastName.Margin = new System.Windows.Forms.Padding(4);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(189, 22);
             this.txtLastName.TabIndex = 36;
@@ -87,7 +88,7 @@
             // txtFirstName
             // 
             this.txtFirstName.Location = new System.Drawing.Point(35, 224);
-            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(243, 22);
             this.txtFirstName.TabIndex = 38;
@@ -106,7 +107,7 @@
             // txtMiddleInitial
             // 
             this.txtMiddleInitial.Location = new System.Drawing.Point(35, 306);
-            this.txtMiddleInitial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMiddleInitial.Margin = new System.Windows.Forms.Padding(4);
             this.txtMiddleInitial.Name = "txtMiddleInitial";
             this.txtMiddleInitial.Size = new System.Drawing.Size(280, 22);
             this.txtMiddleInitial.TabIndex = 40;
@@ -125,7 +126,7 @@
             // txtAge
             // 
             this.txtAge.Location = new System.Drawing.Point(36, 389);
-            this.txtAge.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAge.Margin = new System.Windows.Forms.Padding(4);
             this.txtAge.Name = "txtAge";
             this.txtAge.Size = new System.Drawing.Size(147, 22);
             this.txtAge.TabIndex = 42;
@@ -145,7 +146,7 @@
             // 
             this.cbGender.FormattingEnabled = true;
             this.cbGender.Location = new System.Drawing.Point(35, 474);
-            this.cbGender.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbGender.Margin = new System.Windows.Forms.Padding(4);
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(185, 24);
             this.cbGender.TabIndex = 44;
@@ -165,7 +166,7 @@
             // 
             this.cbPrograms.FormattingEnabled = true;
             this.cbPrograms.Location = new System.Drawing.Point(35, 558);
-            this.cbPrograms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbPrograms.Margin = new System.Windows.Forms.Padding(4);
             this.cbPrograms.Name = "cbPrograms";
             this.cbPrograms.Size = new System.Drawing.Size(280, 24);
             this.cbPrograms.TabIndex = 46;
@@ -187,7 +188,7 @@
             this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnConfirm.Location = new System.Drawing.Point(101, 623);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(177, 50);
             this.btnConfirm.TabIndex = 47;
@@ -216,7 +217,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbID);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmUpdateMember";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FrmUpdateMember_Load);

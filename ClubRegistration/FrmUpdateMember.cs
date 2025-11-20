@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace ClubRegistration
 {
@@ -17,76 +9,60 @@ namespace ClubRegistration
         private SqlConnection sqlConnect;
         private SqlCommand sqlCommand;
         private SqlDataReader sqlReader;
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CLUBDB.mdf;Integrated Security=True";
-      
+
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
+AttachDbFilename=C:\Users\Administrator\Documents\ClubDB.mdf;
+Integrated Security=True;
+Connect Timeout=30;
+Encrypt=False;
+TrustServerCertificate=True";
 
         public FrmUpdateMember()
         {
             InitializeComponent();
-
-         
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-               
-                MessageBox.Show("Error during FrmUpdateMember initialization: " + ex.Message, "Initialization Failure");
-            }
-        }
-
-       
-        
-
-        private void LoadStudentIds()
-        {
-            cbID.Items.Clear();
-            sqlConnect.Open();
-            sqlCommand = new SqlCommand("SELECT StudentId FROM ClubMembers", sqlConnect);
-            sqlReader = sqlCommand.ExecuteReader();
-            while (sqlReader.Read())
-            {
-                cbID.Items.Add(sqlReader["StudentId"].ToString());
-            }
-            sqlReader.Close();
-            sqlConnect.Close();
         }
 
         private void FrmUpdateMember_Load(object sender, EventArgs e)
         {
             sqlConnect = new SqlConnection(connectionString);
+
             LoadStudentIds();
+
             cbGender.Items.AddRange(new string[] { "Male", "Female" });
-            cbPrograms.Items.AddRange(new string[] { "BS Information Technology", "BS Computer Science", "BS Information Systems",
-            "BS Accountancy", "BS Hospitality Management", "BS Tourism Management"});
-
+            cbPrograms.Items.AddRange(new string[]
+            {
+                "BS Information Technology", "BS Computer Science",
+                "BS Information Systems", "BS Accountancy",
+                "BS Hospitality Management", "BS Tourism Management"
+            });
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void LoadStudentIds()
         {
+            cbID.Items.Clear();
+
             sqlConnect.Open();
-            sqlCommand = new SqlCommand("UPDATE ClubMembers SET FirstName=@FirstName, MiddleName=@MiddleName, LastName=@LastName, Age=@Age, Gender=@Gender, Program=@Program WHERE StudentId=@StudentId", sqlConnect);
-            sqlCommand.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-            sqlCommand.Parameters.AddWithValue("@MiddleName", txtMiddleInitial.Text);
-            sqlCommand.Parameters.AddWithValue("@LastName", txtLastName.Text);
-            sqlCommand.Parameters.AddWithValue("@Age", int.Parse(txtAge.Text));
-            sqlCommand.Parameters.AddWithValue("@Gender", cbGender.Text);
-            sqlCommand.Parameters.AddWithValue("@Program", cbPrograms.Text);
-            sqlCommand.Parameters.AddWithValue("@StudentId", cbID.Text);
+            sqlCommand = new SqlCommand("SELECT StudentId FROM ClubMembers", sqlConnect);
+            sqlReader = sqlCommand.ExecuteReader();
 
-            sqlCommand.ExecuteNonQuery();
+            while (sqlReader.Read())
+            {
+                cbID.Items.Add(sqlReader["StudentId"].ToString());
+            }
+
+            sqlReader.Close();
             sqlConnect.Close();
-
-            MessageBox.Show("Member updated successfully!");
         }
-        private void cmbStudentId_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+        
+        private void cbID_SelectedIndexChanged(object sender, EventArgs e)
+        {
             sqlConnect.Open();
             sqlCommand = new SqlCommand("SELECT * FROM ClubMembers WHERE StudentId=@StudentId", sqlConnect);
             sqlCommand.Parameters.AddWithValue("@StudentId", cbID.Text);
+
             sqlReader = sqlCommand.ExecuteReader();
+
             if (sqlReader.Read())
             {
                 txtFirstName.Text = sqlReader["FirstName"].ToString();
@@ -96,8 +72,41 @@ namespace ClubRegistration
                 cbGender.Text = sqlReader["Gender"].ToString();
                 cbPrograms.Text = sqlReader["Program"].ToString();
             }
+
             sqlReader.Close();
             sqlConnect.Close();
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            
+            if (!int.TryParse(txtAge.Text, out int age))
+            {
+                MessageBox.Show("Invalid age. Enter a whole number.");
+                txtAge.Focus();
+                return;
+            }
+
+            sqlConnect.Open();
+
+            sqlCommand = new SqlCommand(
+                "UPDATE ClubMembers SET FirstName=@FirstName, MiddleName=@MiddleName, LastName=@LastName, Age=@Age, Gender=@Gender, Program=@Program WHERE StudentId=@StudentId",
+                sqlConnect);
+
+            sqlCommand.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+            sqlCommand.Parameters.AddWithValue("@MiddleName", txtMiddleInitial.Text);
+            sqlCommand.Parameters.AddWithValue("@LastName", txtLastName.Text);
+            sqlCommand.Parameters.AddWithValue("@Age", age);
+            sqlCommand.Parameters.AddWithValue("@Gender", cbGender.Text);
+            sqlCommand.Parameters.AddWithValue("@Program", cbPrograms.Text);
+            sqlCommand.Parameters.AddWithValue("@StudentId", cbID.Text);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnect.Close();
+
+            MessageBox.Show("Member updated successfully!");
+            this.Close();
         }
     }
 }
