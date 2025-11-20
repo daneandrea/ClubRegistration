@@ -26,13 +26,13 @@ namespace ClubRegistration
 
         public ClubRegistrationQuery()
         {
-            connectionString = connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
 AttachDbFilename=C:\Users\Administrator\Documents\ClubDB.mdf;
 Integrated Security=True;
 Connect Timeout=30;
 Encrypt=False;
 TrustServerCertificate=True";
-            ;
+;
 
             sqlConnect = new SqlConnection(connectionString);
             dataTable = new DataTable();
